@@ -1,4 +1,4 @@
-package com.example.expensetrackerapp.uiElements
+package com.example.expensetrackerapp.uiElements.Icons
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathFillType

@@ -15,6 +15,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -38,8 +41,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.expensetrackerapp.ui.theme.ExpenseRed
 import com.example.expensetrackerapp.ui.theme.IncomeGreen
 import com.example.expensetrackerapp.ui.theme.SurplusBlue
-import com.example.expensetrackerapp.uiElements.ArrowUp
+import com.example.expensetrackerapp.uiElements.Icons.ArrowUp
 import com.example.expensetrackerapp.uiElements.ColouredIconButton
+import com.example.expensetrackerapp.uiElements.Icons.Car
+import com.example.expensetrackerapp.uiElements.Icons.Food
 import com.example.expensetrackerapp.uiElements.TriggerExpenseDialogue
 import com.example.expensetrackerapp.uiElements.TriggerIncomeDialogue
 import com.example.expensetrackerapp.viewmodels.ExpensesViewModel
@@ -180,6 +185,7 @@ fun BuildSummaryScreen(
                 onDismiss = { showIncomeDialogue = false }
             )
         }
+        Spacer(modifier = Modifier.height(7.dp))
 
         // Percent Expense Summary
         Text(
@@ -188,6 +194,12 @@ fun BuildSummaryScreen(
         )
         LazyColumn {
             val expenseTypes = listOf("Housing", "Food", "Transportation", "Other")
+            val iconsByExpenseType = mapOf(
+                "Housing" to Icons.Default.Home,
+                "Food" to Food,
+                "Transportation" to Car,
+                "Other" to Icons.Default.Info
+            )
             items(expenseTypes) { expenseType ->
                 val expenseAmount = expensesViewModel.allExpenses[expenseType]?.values?.sum() ?: 0.0
                 val percentage = if (totalExpenses > 0) (expenseAmount / totalExpenses) * 100 else 0.0
@@ -197,13 +209,22 @@ fun BuildSummaryScreen(
                         .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    iconsByExpenseType[expenseType]?.let {
+                        Icon(
+                            imageVector = it,
+                            contentDescription = "$expenseType Icon",
+                            tint = MaterialTheme.colorScheme.primaryContainer
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(10.dp))
                     Text(
                         text = expenseType,
-                        modifier = Modifier.weight(1f)
+                        style = MaterialTheme.typography.labelMedium,
+                        modifier = Modifier.weight(2.3f)
                     )
                     Spacer(modifier = Modifier.weight(3f))
                     Text(
-                        text = "$${String.format("%.2f", expenseAmount)}",
+                        text = "$${"%.2f".format(expenseAmount)}",
                         style = MaterialTheme.typography.labelMedium,
                         modifier = Modifier.weight(1f)
                     )
