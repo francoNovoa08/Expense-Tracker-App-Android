@@ -20,6 +20,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -280,7 +281,9 @@ fun BuildExpensesScreens(tab: String, viewModel: ExpensesViewModel) {
                         style = MaterialTheme.typography.labelMedium
                     )
                 }
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(5.dp))
+                HorizontalDivider()
+                Spacer(modifier = Modifier.height(5.dp))
             }
         }
         Box(
