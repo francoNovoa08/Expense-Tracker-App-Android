@@ -1,4 +1,4 @@
-package com.example.expensetrackerapp.uiElements
+package com.example.expensetrackerapp.uiElements.Dialogues
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement

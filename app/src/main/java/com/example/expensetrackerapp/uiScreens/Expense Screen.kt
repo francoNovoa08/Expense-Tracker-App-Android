@@ -1,8 +1,10 @@
 package com.example.expensetrackerapp.uiScreens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -34,7 +36,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalMapOf
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -45,8 +49,9 @@ import com.example.expensetrackerapp.uiElements.Icons.ArrowUp
 import com.example.expensetrackerapp.uiElements.ColouredIconButton
 import com.example.expensetrackerapp.uiElements.Icons.Car
 import com.example.expensetrackerapp.uiElements.Icons.Food
-import com.example.expensetrackerapp.uiElements.TriggerExpenseDialogue
-import com.example.expensetrackerapp.uiElements.TriggerIncomeDialogue
+import com.example.expensetrackerapp.uiElements.Dialogues.TriggerExpenseDialogue
+import com.example.expensetrackerapp.uiElements.Dialogues.TriggerIncomeDialogue
+import com.example.expensetrackerapp.uiElements.PercentageBar
 import com.example.expensetrackerapp.viewmodels.ExpensesViewModel
 import com.example.expensetrackerapp.viewmodels.IncomeViewModel
 
@@ -156,8 +161,10 @@ fun BuildSummaryScreen(
                 .width(300.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            val difference = incomeViewModel.income.doubleValue - totalExpenses
+            val differenceType = if (difference >= 0) "Surplus" else "Deficit"
             Text(
-                text = "Surplus/Deficit: ${incomeViewModel.income.doubleValue - totalExpenses}",
+                text = "$differenceType: $difference",
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
                 fontSize = 28.sp,
@@ -192,7 +199,9 @@ fun BuildSummaryScreen(
             text = "Cost Breakdown:",
             style = MaterialTheme.typography.labelMedium
         )
-        LazyColumn {
+        LazyColumn(
+            modifier = Modifier.fillMaxHeight()
+        ) {
             val expenseTypes = listOf("Housing", "Food", "Transportation", "Other")
             val iconsByExpenseType = mapOf(
                 "Housing" to Icons.Default.Home,
@@ -207,7 +216,8 @@ fun BuildSummaryScreen(
                     modifier = Modifier
                         .padding(8.dp)
                         .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     iconsByExpenseType[expenseType]?.let {
                         Icon(
@@ -217,16 +227,22 @@ fun BuildSummaryScreen(
                         )
                     }
                     Spacer(modifier = Modifier.width(10.dp))
-                    Text(
-                        text = expenseType,
-                        style = MaterialTheme.typography.labelMedium,
-                        modifier = Modifier.weight(2.3f)
-                    )
-                    Spacer(modifier = Modifier.weight(3f))
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                    ) {
+                        Text(
+                            text = expenseType,
+                            style = MaterialTheme.typography.labelMedium,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                        PercentageBar(percentage = percentage / 100.0)
+                    }
                     Text(
                         text = "$${"%.2f".format(expenseAmount)}",
                         style = MaterialTheme.typography.labelMedium,
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.align(Alignment.CenterVertically),
                     )
                 }
             }
