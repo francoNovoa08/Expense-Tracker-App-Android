@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -178,6 +179,36 @@ fun BuildSummaryScreen(
                 },
                 onDismiss = { showIncomeDialogue = false }
             )
+        }
+
+        // Percent Expense Summary
+        Text(
+            text = "Cost Breakdown:",
+            style = MaterialTheme.typography.labelMedium
+        )
+        LazyColumn {
+            val expenseTypes = listOf("Housing", "Food", "Transportation", "Other")
+            items(expenseTypes) { expenseType ->
+                val expenseAmount = expensesViewModel.allExpenses[expenseType]?.values?.sum() ?: 0.0
+                val percentage = if (totalExpenses > 0) (expenseAmount / totalExpenses) * 100 else 0.0
+                Row(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = expenseType,
+                        modifier = Modifier.weight(1f)
+                    )
+                    Spacer(modifier = Modifier.weight(3f))
+                    Text(
+                        text = "$${String.format("%.2f", expenseAmount)}",
+                        style = MaterialTheme.typography.labelMedium,
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+            }
         }
     }
 }
