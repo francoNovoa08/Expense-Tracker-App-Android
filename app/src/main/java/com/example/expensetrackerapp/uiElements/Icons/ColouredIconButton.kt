@@ -1,4 +1,4 @@
-package com.example.expensetrackerapp.uiElements
+package com.example.expensetrackerapp.uiElements.Icons
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable

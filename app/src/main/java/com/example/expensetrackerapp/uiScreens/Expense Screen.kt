@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -36,7 +35,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalMapOf
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -45,12 +43,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.expensetrackerapp.ui.theme.ExpenseRed
 import com.example.expensetrackerapp.ui.theme.IncomeGreen
 import com.example.expensetrackerapp.ui.theme.SurplusBlue
-import com.example.expensetrackerapp.uiElements.Icons.ArrowUp
-import com.example.expensetrackerapp.uiElements.ColouredIconButton
-import com.example.expensetrackerapp.uiElements.Icons.Car
-import com.example.expensetrackerapp.uiElements.Icons.Food
+import com.example.expensetrackerapp.uiElements.Icons.ColouredIconButton
 import com.example.expensetrackerapp.uiElements.Dialogues.TriggerExpenseDialogue
 import com.example.expensetrackerapp.uiElements.Dialogues.TriggerIncomeDialogue
+import com.example.expensetrackerapp.uiElements.Icons.ArrowUp
+import com.example.expensetrackerapp.uiElements.Icons.Car
+import com.example.expensetrackerapp.uiElements.Icons.Food
 import com.example.expensetrackerapp.uiElements.PercentageBar
 import com.example.expensetrackerapp.viewmodels.ExpensesViewModel
 import com.example.expensetrackerapp.viewmodels.IncomeViewModel
