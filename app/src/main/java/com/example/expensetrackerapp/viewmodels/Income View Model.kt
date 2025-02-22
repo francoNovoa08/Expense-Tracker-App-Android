@@ -5,4 +5,8 @@ import androidx.lifecycle.ViewModel
 
 class IncomeViewModel: ViewModel() {
     val income = mutableDoubleStateOf(0.0)
+
+    fun updateIncome(newIncome: Double) {
+        income.doubleValue = newIncome
+    }
 }

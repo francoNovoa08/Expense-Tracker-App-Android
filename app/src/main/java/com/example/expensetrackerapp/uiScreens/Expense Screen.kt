@@ -42,11 +42,13 @@ import com.example.expensetrackerapp.uiElements.ColouredIconButton
 import com.example.expensetrackerapp.uiElements.TriggerExpenseDialogue
 import com.example.expensetrackerapp.uiElements.TriggerIncomeDialogue
 import com.example.expensetrackerapp.viewmodels.ExpensesViewModel
+import com.example.expensetrackerapp.viewmodels.IncomeViewModel
 
 @Composable
 fun ExpenseScreen(
     tab: String,
-    expensesViewModel: ExpensesViewModel = viewModel()
+    expensesViewModel: ExpensesViewModel = viewModel(),
+    incomeViewModel: IncomeViewModel = viewModel()
 ) {
 
     Box(
@@ -54,18 +56,19 @@ fun ExpenseScreen(
         contentAlignment = Alignment.Center
     ) {
         when (tab) {
-            "Summary" -> BuildSummaryScreen(expensesViewModel)
+            "Summary" -> BuildSummaryScreen(expensesViewModel, incomeViewModel)
             else -> BuildExpensesScreens(tab, expensesViewModel)
         }
     }
 }
 
 @Composable
-fun BuildSummaryScreen(viewModel: ExpensesViewModel) {
-    var totalIncome by remember { mutableDoubleStateOf(0.0) }
-
+fun BuildSummaryScreen(
+    expensesViewModel: ExpensesViewModel,
+    incomeViewModel: IncomeViewModel
+) {
     var totalExpenses by remember { mutableDoubleStateOf(0.0) }
-    totalExpenses = viewModel.sumExpenses()
+    totalExpenses = expensesViewModel.sumExpenses()
 
     var showIncomeDialogue by remember { mutableStateOf(false) }
 
@@ -99,7 +102,7 @@ fun BuildSummaryScreen(viewModel: ExpensesViewModel) {
             )
             Spacer(modifier = Modifier.width(5.dp))
             Text(
-                text = "Incoming: $totalIncome",
+                text = "Incoming: ${incomeViewModel.income.doubleValue}",
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
                 fontSize = 28.sp,
@@ -148,7 +151,7 @@ fun BuildSummaryScreen(viewModel: ExpensesViewModel) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Surplus/Deficit: ${totalIncome - totalExpenses}",
+                text = "Surplus/Deficit: ${incomeViewModel.income.doubleValue - totalExpenses}",
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
                 fontSize = 28.sp,
@@ -171,7 +174,7 @@ fun BuildSummaryScreen(viewModel: ExpensesViewModel) {
         if (showIncomeDialogue) {
             TriggerIncomeDialogue(
                 income = { income ->
-                    totalIncome = income
+                    incomeViewModel.updateIncome(income)
                 },
                 onDismiss = { showIncomeDialogue = false }
             )
