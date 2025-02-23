@@ -20,10 +20,9 @@ An intuitive expense tracker app built with Kotlin and Jetpack Compose, designed
 - **Material3 Themes**: Supports both **light** and **dark** themes.
 
 ## Screenshots
-![Summary Screen Light](https://github.com/user-attachments/assets/d5dc2ff8-e421-4bcb-bbfc-62f5d5bde685)
-![Housing Expenses Screen](https://github.com/user-attachments/assets/4605ff56-4351-4f2a-a3ed-a97f4c245940)
-![Summary Screen Dark](https://github.com/user-attachments/assets/da425c05-7b79-4520-86cb-88176dd6aed4)
-
+<img src="https://github.com/user-attachments/assets/d5dc2ff8-e421-4bcb-bbfc-62f5d5bde685" width="300">
+<img src="https://github.com/user-attachments/assets/4605ff56-4351-4f2a-a3ed-a97f4c245940" width="300">
+<img src="https://github.com/user-attachments/assets/da425c05-7b79-4520-86cb-88176dd6aed4" width="300">
 
 ## Technologies Used
 - **Kotlin**
